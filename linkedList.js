@@ -60,9 +60,9 @@ prepend(value){
 size(){
     let current=this.headNode;
     let len=0;
-while(current.nextNode){
-    current=current.nextNode;
+    while(current){
     len++;
+    current=current.nextNode;
 }
 return len;
 }
@@ -72,6 +72,7 @@ return this.headNode;
 }
 
 tail(){
+    if(!this.headNode) return null;
     let current=this.headNode;
     while(current.nextNode){
         current=current.nextNode;
@@ -84,8 +85,9 @@ at(index){
 
     let current=this.headNode;
     let i=0;
-    while(i===index){
+    while(current && i<index){
         current=current.nextNode;
+        i++;
     }
 
 return current;
@@ -93,6 +95,12 @@ return current;
 }
 
 insertAt(value, index){
+
+    if(index === 0){
+        this.prepend(value);
+        return;
+    }
+
     let node=new Node(value);
     let current=this.headNode;
     let previous;
@@ -109,18 +117,22 @@ insertAt(value, index){
 
 removeAt(index){
 
+    if(!this.headNode) return;
+    if(index==0){
+        this.headNode = this.headNode.nextNode;
+        return;
+    }
     let current=this.headNode;
-    let previous;
-
+    let previous = null;
     let i=0;
+
     while(i!==index){
         previous=current;
         current=current.nextNode;
         i++;
     }
 
-    current=current.nextNode;
-    previous.nextNode=current;    
+    previous.nextNode=current.nextNode;  
 
 }
 
@@ -159,9 +171,6 @@ return false;
 
 find(value){
 
-    if(!this.contains(value)){
-        return null;
-    }
     let current = this.headNode;
     let index=0;
     while(current){
@@ -172,6 +181,7 @@ find(value){
         current=current.nextNode;
         index=index+1;
     }
+    return null;
 }
 
 toString(){
