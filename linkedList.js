@@ -81,8 +81,15 @@ tail(){
     return current;
 }
 
+checkIndexBound(index){
+    let size=this.size();
+    if( index>size || index<0 ){
+     return false;   
+    }
+    return true;
+}
 at(index){
-
+    if(this.checkIndexBound(index)){
     let current=this.headNode;
     let i=0;
     while(current && i<index){
@@ -91,6 +98,10 @@ at(index){
     }
 
 return current;
+    }
+
+let error="Index out of bound!";
+return error;
 
 }
 
@@ -223,3 +234,4 @@ list.insertAt(3,2);
 list.toString();
 list.removeAt(1);
 list.toString();
+console.log(list.at(8));
