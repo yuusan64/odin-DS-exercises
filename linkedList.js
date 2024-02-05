@@ -107,6 +107,7 @@ return error;
 
 insertAt(value, index){
 
+    if(this.checkIndexBound(index)){
     if(index === 0){
         this.prepend(value);
         return;
@@ -123,11 +124,16 @@ insertAt(value, index){
     }
     previous.nextNode=node;
     node.nextNode=current;
+}
+let error="Index out of bound!";
+return error;
+
 
 }
 
 removeAt(index){
-
+    
+    if(this.checkIndexBound(index)){
     if(!this.headNode) return;
     if(index==0){
         this.headNode = this.headNode.nextNode;
@@ -144,6 +150,10 @@ removeAt(index){
     }
 
     previous.nextNode=current.nextNode;  
+}
+    let error="Index out of bound!";
+    return error;
+
 
 }
 
