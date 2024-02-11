@@ -15,35 +15,44 @@ class Graph{
     //add edge between two vertices
 
     addEdge(vertex1, vertex2){
-        if(this.adjacencyList[vertex1] && this.adjacencyList[vertex2]){
-            this.adjacencyList[vertex1].push(vertex2);
-            this.adjacencyList[vertex2].push(vertex1);
+        if(!this.adjacencyList[vertex1]){
+            console.log(`Vertex1 not found: ${vertex1}`)
+        }
 
-        }else{
-            console.log(`Check vertices: ${vertex1}, ${vertex2}`);
+        if(!this.adjacencyList[vertex2]){
+            console.log(`Vertex2 not found: ${vertex2}`);
+        }
+        if (!this.adjacencyList[vertex1].includes(vertex2)) {
+            this.adjacencyList[vertex1].push(vertex2);
+        }
+        if (!this.adjacencyList[vertex2].includes(vertex1)) {
+            this.adjacencyList[vertex2].push(vertex1);
         }
     }
 
     //generate graph with all possible knight moves 
 
-    buildKnightGraph(){
-        const boardSize=8;
-
-        for(let row=0; row<boardSize; row++){
-            for(let col=0; col<boardSize; col++){
+    buildKnightGraph() {
+        const boardSize = 8;
+        // add all vertices
+        for (let row = 0; row < boardSize; row++) {
+            for (let col = 0; col < boardSize; col++) {
                 let vertex = this.coordToVertex(row, col);
                 this.addVertex(vertex);
-
-                let moves=this.knightMoves(row,col);
-
-                moves.forEach(([r,c]) => {
-                    this.addEdge(vertex, this.coordToVertex(r,c));
-                    
+            }
+        }
+        // add edges for knight moves
+        for (let row = 0; row < boardSize; row++) {
+            for (let col = 0; col < boardSize; col++) {
+                let vertex = this.coordToVertex(row, col);
+                let moves = this.knightMoves(row, col);
+                moves.forEach(([r, c]) => {
+                    this.addEdge(vertex, this.coordToVertex(r, c));
                 });
             }
         }
-        console.log(this.adjacencyList); 
     }
+    
         //convert board coordinates to vertex key
 
         coordToVertex(row, col){
@@ -106,8 +115,9 @@ class Graph{
 
 const graph = new Graph();
 graph.buildKnightGraph();
-const start = graph.coordToVertex(0,0); 
-const target = graph.coordToVertex(7,7);
+const start = graph.coordToVertex(3,3); 
+const target = graph.coordToVertex(4,3);
 const shortestPath = graph.bfs(start, target);
 
+console.log(graph);
 console.log(`Shortest Path from ${start} to ${target}: `, shortestPath);
