@@ -31,7 +31,7 @@ class Tree{
     let right=sorted.slice(mid+1);
     node.left=this.buildTree(left);
     node.right=this.buildTree(right);
-
+   
     return node;
     }
 
@@ -167,11 +167,12 @@ class Tree{
 
         //traverse right subtree
         traverse(node.right);
+        
     }
 
     //start traversing from root
     traverse(root);
-
+    
     return callback? undefined:result;
 
     }
@@ -202,7 +203,8 @@ class Tree{
     }
 
     traverse(root);
-
+    
+   
     return callback ? undefined: result;
     }
 
@@ -228,6 +230,7 @@ class Tree{
 
     traverse(root);
 
+    
     return callback ? undefined : result;
 
     }
@@ -345,15 +348,16 @@ let randomNumbers = generateRandomArray(10, 100);
 let tree = new Tree(randomNumbers);
 console.log(randomNumbers);
 // check if tree is balanced
+tree.prettyPrint();
 console.log("Is the tree initially balanced?", tree.isBalanced() ? "Yes" : "No");
 
 // Print out all elements in level, pre, post, and in order
 console.log("Level Order:", tree.levelOrder());
-tree.prettyPrint();
+
 console.log("Preorder:", tree.preOrder());
-tree.prettyPrint();
+
 console.log("Postorder:", tree.postOrder());
-tree.prettyPrint();
+
 console.log("Inorder:", tree.inOrder());
 
 // Unbalancing the tree
@@ -368,12 +372,12 @@ tree.rebalance();
 // Confirm the tree is balanced
 console.log("Is the tree balanced after rebalancing?", tree.isBalanced() ? "Yes" : "No");
 
+tree.prettyPrint();
 // Print out all elements again in level, pre, post, and in order
 console.log("Level Order after rebalancing:", tree.levelOrder());
-tree.prettyPrint();
+
 console.log("Preorder after rebalancing:", tree.preOrder());
-tree.prettyPrint();
 console.log("Postorder after rebalancing:", tree.postOrder());
-tree.prettyPrint();
+
 console.log("Inorder after rebalancing:", tree.inOrder());
-tree.prettyPrint();
+
